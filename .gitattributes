@@ -1,0 +1,11 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Custom for Visual Studio
+*.cs       text diff=csharp
+*.xaml     text
+*.config   text
+*.settings text
+*.sln      text
+*.csproj   text
+*.targets  text
