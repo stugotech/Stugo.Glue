@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stugo.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,37 +7,8 @@ namespace Stugo.Glue
 {
     public sealed class SimpleContainer : IContainer, IContainerRegistration
     {
+        private static readonly ILog logger = Logger.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Dictionary<Type, Func<Type, object>> resolvers = new Dictionary<Type, Func<Type, object>>();
-
-
-        /// <summary>
-        /// Constructs the specified type by resolving the parameter types.
-        /// </summary>
-        public TConcrete Construct<TConcrete>()
-            where TConcrete : class
-        {
-            return (TConcrete)Construct(typeof(TConcrete));
-        }
-
-
-        /// <summary>
-        /// Constructs the specified type by resolving the parameter types.
-        /// </summary>
-        public object Construct(Type type)
-        {
-            var constructors = type.GetConstructors();
-
-            if (constructors.Length != 1)
-            {
-                throw new ArgumentException(
-                    string.Format("The type '{0}' does not have exactly one public constructor",
-                        type.FullName));
-            }
-
-            var constructor = constructors.Single();
-            var args = constructor.GetParameters().Select(param => Resolve(param.ParameterType));
-            return Activator.CreateInstance(type, args.ToArray());
-        }
 
 
         /// <summary>
@@ -53,10 +25,29 @@ namespace Stugo.Glue
         /// </summary>
         public object Resolve(Type abstractType)
         {
-            if (abstractType.IsAbstract)
-                return GetResolver(abstractType)(abstractType);
-            else
-                return Construct(abstractType);
+            try
+            {
+                logger.Trace($"Resolve type {abstractType.FullName}");
+                object implementation;
+
+                if (abstractType.IsAbstract)
+                {
+                    implementation = resolvers[abstractType](abstractType);
+                    logger.Trace($"Type {abstractType.FullName} resolved to {implementation.GetType().FullName}");
+                }
+                else
+                {
+                    implementation = Construct(abstractType);
+                    logger.Trace($"Type {abstractType.FullName} constructed");
+                }
+
+                return implementation;
+            }
+            catch (Exception e)
+            {
+                logger.Error($"Error while resolving type {abstractType.FullName}", e);
+                throw;
+            }
         }
 
 
@@ -66,6 +57,7 @@ namespace Stugo.Glue
         public void Register<TAbstract, TConcrete>(bool singleton = false)
             where TConcrete : class, TAbstract
         {
+            logger.Trace($"Register {(singleton?"singleton ":"")} implementation {typeof(TConcrete).FullName} for interface {typeof(TAbstract).FullName}");
             Func<Type, object> resolver;
 
             if (singleton)
@@ -97,6 +89,7 @@ namespace Stugo.Glue
         /// </summary>
         public void Register<TAbstract>(TAbstract instance)
         {
+            logger.Trace($"Register singleton instance {instance.GetType().FullName} for interface {typeof(TAbstract).FullName}");
             Register<TAbstract>(t => instance);
         }
 
@@ -110,9 +103,35 @@ namespace Stugo.Glue
         }
 
 
-        private Func<Type, object> GetResolver(Type type)
+        /// <summary>
+        /// Constructs the specified type by resolving the parameter types.
+        /// </summary>
+        private TConcrete Construct<TConcrete>()
+            where TConcrete : class
         {
-            return resolvers[type];
+            return (TConcrete)Construct(typeof(TConcrete));
+        }
+
+
+        /// <summary>
+        /// Constructs the specified type by resolving the parameter types.
+        /// </summary>
+        private object Construct(Type type)
+        {
+            logger.Trace($"Constructing type {type.FullName}");
+            var constructors = type.GetConstructors();
+            logger.Trace($"Type has {constructors.Length} constructors");
+
+            if (constructors.Length != 1)
+            {
+                logger.Error($"Can't construct type {type.FullName} because it has {constructors.Length} constructors");
+                throw new ArgumentException($"Can't construct type {type.FullName} because it has {constructors.Length} constructors");
+            }
+
+            var constructor = constructors.Single();
+            logger.Trace($"Using constructor {constructor}");
+            var args = constructor.GetParameters().Select(param => Resolve(param.ParameterType));
+            return Activator.CreateInstance(type, args.ToArray());
         }
     }
 }
