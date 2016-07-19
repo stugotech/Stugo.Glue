@@ -33,7 +33,7 @@ namespace Stugo.Glue
                 if (abstractType.IsAbstract)
                 {
                     implementation = resolvers[abstractType](abstractType);
-                    logger.Trace($"Type {abstractType.FullName} resolved to {implementation.GetType().FullName}");
+                    logger.Trace($"Type {abstractType.FullName} resolved to {implementation?.GetType()?.FullName ?? "null"}");
                 }
                 else
                 {
@@ -89,7 +89,7 @@ namespace Stugo.Glue
         /// </summary>
         public void Register<TAbstract>(TAbstract instance)
         {
-            logger.Trace($"Register singleton instance {instance?.GetType()?.FullName} for interface {typeof(TAbstract).FullName}");
+            logger.Trace($"Register singleton instance {instance?.GetType()?.FullName ?? "null"} for interface {typeof(TAbstract).FullName}");
             Register<TAbstract>(t => instance);
         }
 
