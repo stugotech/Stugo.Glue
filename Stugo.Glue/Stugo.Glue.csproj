@@ -42,8 +42,8 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Stugo.Core, Version=2.0.6040.18220, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stugo.Core.2.0.6040.18220\lib\net45\Stugo.Core.dll</HintPath>
+    <Reference Include="Stugo.Core, Version=2.2.6044.17541, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stugo.Core.2.2.6044.17541\lib\net45\Stugo.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

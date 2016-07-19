@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stugo.Glue", "Stugo.Glue\Stugo.Glue.csproj", "{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}"
 EndProject
@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		GlobalVersionInfo.cs = GlobalVersionInfo.cs
 		publish.cmd = publish.cmd
 		README.md = README.md
+		release.cmd = release.cmd
 	EndProjectSection
 EndProject
 Global
