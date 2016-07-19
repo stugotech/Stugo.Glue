@@ -89,7 +89,7 @@ namespace Stugo.Glue
         /// </summary>
         public void Register<TAbstract>(TAbstract instance)
         {
-            logger.Trace($"Register singleton instance {instance.GetType().FullName} for interface {typeof(TAbstract).FullName}");
+            logger.Trace($"Register singleton instance {instance?.GetType()?.FullName} for interface {typeof(TAbstract).FullName}");
             Register<TAbstract>(t => instance);
         }
 
