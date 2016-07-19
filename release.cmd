@@ -3,7 +3,7 @@
 if [%1]==[] goto usage
 
 git tag -a %1 -m "v%1"
-del /Q Stugo.Core\bin\Release\*.nupkg
+del /Q Stugo.Glue\bin\Release\*.nupkg
 call .\build.cmd
 
 goto :eof
