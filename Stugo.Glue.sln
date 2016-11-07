@@ -5,49 +5,26 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stugo.Glue", "Stugo.Glue\Stugo.Glue.csproj", "{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{605994EA-061F-4527-92BD-A5AE5D1B314B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{AEED71A0-62A6-4386-8218-CDB4BACA5010}"
-	ProjectSection(SolutionItems) = preProject
-		tools\NuGet\NuGet.Config = tools\NuGet\NuGet.Config
-		tools\NuGet\NuGet.exe = tools\NuGet\NuGet.exe
-		tools\NuGet\NuGet.targets = tools\NuGet\NuGet.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuildVersioning", "MSBuildVersioning", "{EAF4983E-9606-49A3-9235-22ADE6171A11}"
-	ProjectSection(SolutionItems) = preProject
-		tools\MsBuildVersioning\MSBuildVersioning.dll = tools\MsBuildVersioning\MSBuildVersioning.dll
-		tools\MsBuildVersioning\MSBuildVersioning.targets = tools\MsBuildVersioning\MSBuildVersioning.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14878682-954E-46AA-B493-145E52C1FD9A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		build.cmd = build.cmd
-		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
-		GlobalVersionInfo.cs = GlobalVersionInfo.cs
-		publish.cmd = publish.cmd
+		appveyor.yaml = appveyor.yaml
 		README.md = README.md
-		release.cmd = release.cmd
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		net40|Any CPU = net40|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}.net40|Any CPU.ActiveCfg = net40|Any CPU
+		{9CF3D2BF-E5D6-494C-A666-B39877A1BC24}.net40|Any CPU.Build.0 = net40|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AEED71A0-62A6-4386-8218-CDB4BACA5010} = {605994EA-061F-4527-92BD-A5AE5D1B314B}
-		{EAF4983E-9606-49A3-9235-22ADE6171A11} = {605994EA-061F-4527-92BD-A5AE5D1B314B}
 	EndGlobalSection
 EndGlobal
