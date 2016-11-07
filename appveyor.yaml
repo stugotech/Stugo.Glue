@@ -1,6 +1,6 @@
 environment:
   PROJECT_NAME: Stugo.Glue
-  VERSION_NUMBER: 2.4.0
+  VERSION_NUMBER: 2.5.0
   VERSION_PRE_TAG: 
 
 version: $(VERSION_NUMBER).{build}
@@ -14,7 +14,6 @@ before_build:
 build_script:
   - cmd: |
       msbuild /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=net40 /m
-      msbuild /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=net45 /m
       rmdir /S /Q %PROJECT_NAME%\bin\nupkg || true
       mkdir %PROJECT_NAME%\bin\nupkg
       nuget pack %PROJECT_NAME%\%PROJECT_NAME%.nuspec -OutputDirectory %PROJECT_NAME%\bin\nupkg\ /symbols -Version "%APPVEYOR_BUILD_VERSION%"
