@@ -9,17 +9,18 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Stugo.Glue</RootNamespace>
     <AssemblyName>Stugo.Glue</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(Configuration)'=='net40'">v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(Configuration)'=='net45'">v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(Configuration)'=='debug'">v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <BuildPackage>True</BuildPackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -28,22 +29,35 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\net40\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'net45|AnyCPU'">
+    <OutputPath>bin\net45\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\Stugo.Logging.1.1.0.4\lib\net40\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Stugo.AssemblyDetails, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stugo.Logging.1.1.0.4\lib\net40\Stugo.AssemblyDetails.dll</HintPath>
+    <Reference Include="Stugo.AssemblyDetails, Version=1.3.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stugo.AssemblyDetails.1.3.1.6\lib\net40\Stugo.AssemblyDetails.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Stugo.Logging, Version=1.1.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stugo.Logging.1.1.0.4\lib\net40\Stugo.Logging.dll</HintPath>
+    <Reference Condition="'$(TargetFrameworkVersion)'=='v4.0'" Include="Stugo.Logging, Version=2.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stugo.Logging.2.0.0.6\lib\net40\Stugo.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Condition="'$(TargetFrameworkVersion)'=='v4.5'" Include="Stugo.Logging, Version=2.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stugo.Logging.2.0.0.6\lib\net45\Stugo.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -7,10 +7,14 @@
     <description>Provides a DI implementation.</description>
     <copyright>Copyright (c) Stugo Ltd 2016</copyright>
     <dependencies>
-      <dependency id="Stugo.Logging" version="[1.1.0.4,2)" />
+      <dependency id="Stugo.Logging" version="[2.0.0.6,3)" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\net40\*.*" target="lib\net40" />
+    <file src="bin\net40\Stugo.Glue.dll" target="lib\net40\" />
+    <file src="bin\net40\Stugo.Glue.pdb" target="lib\net40\" />
+    
+    <file src="bin\net45\Stugo.Glue.dll" target="lib\net45\" />
+    <file src="bin\net45\Stugo.Glue.pdb" target="lib\net45\" />
   </files>
 </package>

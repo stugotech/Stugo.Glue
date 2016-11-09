@@ -27,25 +27,25 @@ namespace Stugo.Glue
         {
             try
             {
-                logger.Trace($"Resolve type {abstractType.FullName}");
+                logger.Trace($"Resolve type {abstractType.FullName}", nameof(Resolve));
                 object implementation;
 
                 if (abstractType.IsAbstract)
                 {
                     implementation = resolvers[abstractType](abstractType);
-                    logger.Trace($"Type {abstractType.FullName} resolved to {implementation?.GetType()?.FullName ?? "null"}");
+                    logger.Trace($"Type {abstractType.FullName} resolved to {implementation?.GetType()?.FullName ?? "null"}", nameof(Resolve));
                 }
                 else
                 {
                     implementation = Construct(abstractType);
-                    logger.Trace($"Type {abstractType.FullName} constructed");
+                    logger.Trace($"Type {abstractType.FullName} constructed", nameof(Resolve));
                 }
 
                 return implementation;
             }
             catch (Exception e)
             {
-                logger.Error($"Error while resolving type {abstractType.FullName}", e);
+                logger.Error($"Error while resolving type {abstractType.FullName}", e, nameof(Resolve));
                 throw;
             }
         }
@@ -57,7 +57,7 @@ namespace Stugo.Glue
         public void Register<TAbstract, TConcrete>(bool singleton = false)
             where TConcrete : class, TAbstract
         {
-            logger.Trace($"Register {(singleton?"singleton ":"")} implementation {typeof(TConcrete).FullName} for interface {typeof(TAbstract).FullName}");
+            logger.Trace($"Register {(singleton?"singleton ":"")} implementation {typeof(TConcrete).FullName} for interface {typeof(TAbstract).FullName}", nameof(Register));
             Func<Type, object> resolver;
 
             if (singleton)
@@ -89,7 +89,7 @@ namespace Stugo.Glue
         /// </summary>
         public void Register<TAbstract>(TAbstract instance)
         {
-            logger.Trace($"Register singleton instance {instance?.GetType()?.FullName ?? "null"} for interface {typeof(TAbstract).FullName}");
+            logger.Trace($"Register singleton instance {instance?.GetType()?.FullName ?? "null"} for interface {typeof(TAbstract).FullName}", nameof(Register));
             Register<TAbstract>(t => instance);
         }
 
@@ -118,18 +118,18 @@ namespace Stugo.Glue
         /// </summary>
         private object Construct(Type type)
         {
-            logger.Trace($"Constructing type {type.FullName}");
+            logger.Trace($"Constructing type {type.FullName}", nameof(Construct));
             var constructors = type.GetConstructors();
-            logger.Trace($"Type has {constructors.Length} constructors");
+            logger.Trace($"Type has {constructors.Length} constructors", nameof(Construct));
 
             if (constructors.Length != 1)
             {
-                logger.Error($"Can't construct type {type.FullName} because it has {constructors.Length} constructors");
-                throw new ArgumentException($"Can't construct type {type.FullName} because it has {constructors.Length} constructors");
+                logger.Error($"Can't construct type {type.FullName} because it has {constructors.Length} constructors", nameof(Construct));
+                throw new ArgumentException($"Can't construct type {type.FullName} because it has {constructors.Length} constructors", nameof(Construct));
             }
 
             var constructor = constructors.Single();
-            logger.Trace($"Using constructor {constructor}");
+            logger.Trace($"Using constructor {constructor}", nameof(Construct));
             var args = constructor.GetParameters().Select(param => Resolve(param.ParameterType));
             return Activator.CreateInstance(type, args.ToArray());
         }
