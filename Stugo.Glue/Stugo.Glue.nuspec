@@ -7,7 +7,7 @@
     <description>Provides a DI implementation.</description>
     <copyright>Copyright (c) Stugo Ltd 2016</copyright>
     <dependencies>
-      <dependency id="Stugo.Logging" version="[2.0.0.6,3)" />
+      <dependency id="Stugo.Logging" version="[2.0.1.10,3)" />
     </dependencies>
   </metadata>
   <files>
